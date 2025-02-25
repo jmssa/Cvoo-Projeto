@@ -78,20 +78,25 @@ Yda = 0;
 llbb = lbb + (Ixz/Ix)*nbb;
 llp = lp + (Ixz/Ix)*np;
 llr = lr + (Ixz/Ix)*nr;
+Llda = Lda + (Ixz/Ix)*Nda;
+Lldr = Ldr + (Ixz/Ix)*Ndr;
+
 
 nlbb = nbb + (Ixz/Iz)*lbb;
 nlp = np + (Ixz/Iz)*lp;
 nlr = nr + (Ixz/Iz)*lr;
+Nlda = Nda + (Ixz/Iz)*Lda;
+Nldr = Ndr + (Ixz/Iz)*Ldr;
 
 % Definicao das matrizes da dinamica e das entradas
-A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
+A_lat = [ybb, yp+(w0/u0), yr-(u0/u0), g*cos(tt0)/u0;
         llbb, llp, llr, 0;
         nlbb, nlp, nlr, 0;
         0, 1, tan(tt0), 0];
 
 B_lat = [Yda, Ydr;
-         Lda, Ldr;
-         Nda, Ndr;
+         Llda, Lldr;
+         Nlda, Nldr;
          0  , 0  ];
 
 damp(A_lat);
@@ -102,7 +107,7 @@ damp(A_lat);
 C = eye(4);
 D = zeros(4,2);
 
-tsim = 5;
+tsim = 10;
 open("UAV3.slx");
 uav3 = sim("UAV3.slx");
 figure
