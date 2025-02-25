@@ -81,7 +81,6 @@ llr = lr + (Ixz/Ix)*nr;
 Llda = Lda + (Ixz/Ix)*Nda;
 Lldr = Ldr + (Ixz/Ix)*Ndr;
 
-
 nlbb = nbb + (Ixz/Iz)*lbb;
 nlp = np + (Ixz/Iz)*lp;
 nlr = nr + (Ixz/Iz)*lr;
