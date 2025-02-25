@@ -14,7 +14,7 @@ gg0 = 0; %deg
 tt0 = gg0 + aa0; %deg
 
 u0 = 54.4;
-u0 = u0*0.51444; % Ja em metros por segundo
+u0 = u0*0.51444; % Em metros por segundo
 flaps = 0; %deg
 
 w0 = tan(aa0)*u0;
@@ -57,9 +57,13 @@ xdt = 2.642; zdt = 0.000; mdt = 0.000;
 Lda = -130.897; Nda = -0.000; Ydr = -0.008; Ldr = -0.000; Ndr = 39.434;
 
 %% Modelo em Espaco de Estados da aeronave
-%X_lat = [bb; p; r; phi];
 
-%U_lat = [da; dr];
+% Variaveis que nao estao definidas no enunciado
+Yda = 0;
+
+% Vetor de estado e entradas a considerar
+%   X_lat = [bb; p; r; phi];
+%   U_lat = [da; dr];
 
 A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
         lbb, lp, lr, 0;
@@ -67,7 +71,27 @@ A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
         0, 1, tan(tt0), 0];
 
 
-B_lat = [];
+B_lat = [Yda, Ydr;
+         Lda, Ldr;
+         Nda, Ndr;
+         0  , 0  ];
 
-damp(A_lat)
+damp(A_lat);
 
+%% Simulacao com recurso ao Simulink
+
+% Definicao das saidas do sistema
+C = eye(4);
+D = zeros(4,2);
+
+tsim = 5;
+open("UAV3.slx");
+uav3 = sim("UAV3.slx");
+figure
+plot(uav3.bb.time, uav3.bb.signals.values);
+figure
+plot(uav3.p.time, uav3.p.signals.values);
+figure
+plot(uav3.r.time, uav3.r.signals.values);
+figure
+plot(uav3.phi.time, uav3.phi.signals.values);
