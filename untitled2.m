@@ -10,24 +10,29 @@
 
 h = 500; %m 
 aa0 = -3.65; %deg
-aa0 = deg2rad(aa0);
+aa0 = deg2rad(aa0); %rad
 
-gg0 = 0; %deg
-gg0 = deg2rad(gg0);
+gg0 = 0; %deg/rad
+tt0 = gg0 + aa0; %rad
 
-tt0 = gg0 + aa0; %deg
+u0 = 54.4; %kn
+u0 = u0*0.51444; %m/s
+flaps = 0; %deg/rad
 
-u0 = 54.4;
-u0 = u0*0.51444; % Em metros por segundo
-flaps = 0; %deg
-
-w0 = tan(aa0)*u0;
+w0 = tan(aa0)*u0; %m/s
 
 % Inputs
-th0 = 83; %%
+th0 = 83; % "%"
+
 de0 = 5.07; %deg
+de0 = deg2rad(de0); %rad
+
 da0 = 0.34; %deg 
+da0 = deg2rad(da0); %rad
+
 dr0 = -0.01; %deg
+dr0 = deg2rad(dr0); %rad
+
 Teng = 0.14; %sec
 demax = 30; %deg
 demin = -30; %deg
@@ -69,6 +74,7 @@ Yda = 0;
 %   X_lat = [bb; p; r; phi];
 %   U_lat = [da; dr];
 
+% Calculo das derivadas adicionais a utilizar
 llbb = lbb + (Ixz/Ix)*nbb;
 llp = lp + (Ixz/Ix)*np;
 llr = lr + (Ixz/Ix)*nr;
@@ -77,11 +83,11 @@ nlbb = nbb + (Ixz/Iz)*lbb;
 nlp = np + (Ixz/Iz)*lp;
 nlr = nr + (Ixz/Iz)*lr;
 
+% Definicao das matrizes da dinamica e das entradas
 A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
         llbb, llp, llr, 0;
         nlbb, nlp, nlr, 0;
         0, 1, tan(tt0), 0];
-
 
 B_lat = [Yda, Ydr;
          Lda, Ldr;
