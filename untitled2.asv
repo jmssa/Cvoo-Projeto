@@ -1,23 +1,17 @@
 %% UAV - Flight condition 3
 %
-% Codigo para o projeto de Controlo de Voo 2024/2025
-% Autores:
-% * Joao Santos 106280
-% * Francisco Garcia 106385
-% * Ruben Bernardino 106571
-
-%% Dados da aeronave
+% Codigo para o projeto de Controlo de Voo 2024
 
 h = 500; %m 
 aa0 = -3.65; %deg 
 gg0 = 0; %deg
 tt0 = gg0 + aa0; %deg
 
-u0 = 54.4;
-u0 = u0*0.51444; % Ja em metros por segundo
+u0 = 54.4; %kn convert(!!!)
+u0 = u0*0.51444;
 flaps = 0; %deg
 
-w0 = tan(aa0)*u0;
+w0 = tan(aa0)*u0; % calculate(!!!)
 
 % Inputs
 th0 = 83; %%
@@ -56,7 +50,8 @@ xdt = 2.642; zdt = 0.000; mdt = 0.000;
 
 Lda = -130.897; Nda = -0.000; Ydr = -0.008; Ldr = -0.000; Ndr = 39.434;
 
-%% Modelo em Espaco de Estados da aeronave
+% Dynamic Equations
+% Lateral
 %X_lat = [bb; p; r; phi];
 
 %U_lat = [da; dr];
