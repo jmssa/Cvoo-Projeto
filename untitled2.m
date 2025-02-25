@@ -9,8 +9,12 @@
 %% Dados da aeronave
 
 h = 500; %m 
-aa0 = -3.65; %deg 
+aa0 = -3.65; %deg
+aa0 = deg2rad(aa0);
+
 gg0 = 0; %deg
+gg0 = deg2rad(gg0);
+
 tt0 = gg0 + aa0; %deg
 
 u0 = 54.4;
@@ -65,9 +69,17 @@ Yda = 0;
 %   X_lat = [bb; p; r; phi];
 %   U_lat = [da; dr];
 
+llbb = lbb + (Ixz/Ix)*nbb;
+llp = lp + (Ixz/Ix)*np;
+llr = lr + (Ixz/Ix)*nr;
+
+nlbb = nbb + (Ixz/Iz)*lbb;
+nlp = np + (Ixz/Iz)*lp;
+nlr = nr + (Ixz/Iz)*lr;
+
 A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
-        lbb, lp, lr, 0;
-        nbb, np, nr, 0;
+        llbb, llp, llr, 0;
+        nlbb, nlp, nlr, 0;
         0, 1, tan(tt0), 0];
 
 

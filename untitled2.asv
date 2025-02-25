@@ -9,21 +9,33 @@
 %% Dados da aeronave
 
 h = 500; %m 
-aa0 = -3.65; %deg 
+
+aa0 = -3.65; %deg
+aa0 = deg2rad(aa0);
+
 gg0 = 0; %deg
+gg0 = deg2rad(gg0);
+
 tt0 = gg0 + aa0; %deg
 
 u0 = 54.4;
-u0 = u0*0.51444; % Ja em metros por segundo
+u0 = u0*0.51444; % Em metros por segundo
 flaps = 0; %deg
 
 w0 = tan(aa0)*u0;
 
 % Inputs
 th0 = 83; %%
+
 de0 = 5.07; %deg
+de0 = deg2rad(de0);
+
 da0 = 0.34; %deg 
+da0 = deg2rad(da0);
+
 dr0 = -0.01; %deg
+dr0 = deg2rad(dr0);
+
 Teng = 0.14; %sec
 demax = 30; %deg
 demin = -30; %deg
@@ -61,26 +73,46 @@ Lda = -130.897; Nda = -0.000; Ydr = -0.008; Ldr = -0.000; Ndr = 39.434;
 % Variaveis que nao estao definidas no enunciado
 Yda = 0;
 
-% Variaveis 
-C = eye(4);
-D = zeros(4,2);
-dr = 0;
-da = 0;
+% Vetor de estado e entradas a considerar
+%   X_lat = [bb; p; r; phi];
+%   U_lat = [da; dr];
 
-%X_lat = [bb; p; r; phi];
+% Calculo das derivadas de estabilidade "compostas"
+llbb = lbb + (Ixz/Ix)*nbb;
+llp = lp + (Ixz/Ix)*np;
+llr = lr + (Ixz/Ix)*nr;
 
-%U_lat = [da; dr];
+nlbb = nbb + (Ixz/Iz)*lbb;
+nlp = np + (Ixz/Iz)*lp;
+nlr = nr + (Ixz/Iz)*lr;
 
+% Definicao das matrizes da dinamica e das entradas
 A_lat = [ybb, yp+w0, yr-u0, g*cos(tt0);
-        lbb, lp, lr, 0;
-        nbb, np, nr, 0;
+        llbb, llp, llr, 0;
+        nlbb, nlp, nlr, 0;
         0, 1, tan(tt0), 0];
-
 
 B_lat = [Yda, Ydr;
          Lda, Ldr;
          Nda, Ndr;
          0  , 0  ];
 
-damp(A_lat)
+damp(A_lat);
 
+%% Simulacao com recurso ao Simulink
+
+% Definicao das saidas do sistema
+C = eye(4);
+D = zeros(4,2);
+
+tsim = 5;
+open("UAV3.slx");
+uav3 = sim("UAV3.slx");
+figure
+plot(uav3.bb.time, uav3.bb.signals.values);
+figure
+plot(uav3.p.time, uav3.p.signals.values);
+figure
+plot(uav3.r.time, uav3.r.signals.values);
+figure
+plot(uav3.phi.time, uav3.phi.signals.values);
