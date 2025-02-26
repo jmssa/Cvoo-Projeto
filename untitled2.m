@@ -100,20 +100,4 @@ B_lat = [Yda, Ydr;
 
 damp(A_lat);
 
-%% Simulacao com recurso ao Simulink
 
-% Definicao das saidas do sistema
-C = eye(4);
-D = zeros(4,2);
-
-tsim = 10;
-open("UAV3.slx");
-uav3 = sim("UAV3.slx");
-figure
-plot(uav3.bb.time, uav3.bb.signals.values);
-figure
-plot(uav3.p.time, uav3.p.signals.values);
-figure
-plot(uav3.r.time, uav3.r.signals.values);
-figure
-plot(uav3.phi.time, uav3.phi.signals.values);
