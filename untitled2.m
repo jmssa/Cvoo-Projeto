@@ -29,9 +29,11 @@ de0 = deg2rad(de0); %rad
 
 da0 = 0.34; %deg 
 da0 = deg2rad(da0); %rad
+deltaa = 1.34; %rad
 
 dr0 = -0.01; %deg
 dr0 = deg2rad(dr0); %rad
+deltar = 0.5; %rad
 
 Teng = 0.14; %sec
 demax = 30; %deg
@@ -115,7 +117,7 @@ uav3 = sim("UAV3.slx");
 %% SAE para a derrapagem com recurso ao LQR
 
 % Matriz Q -> Peso associado ao desvio do valor do estado relativamente ao equilibrio
-Q = diag([1, 1, 1, 1]);
+Q = diag([10, 1, 1, 1]);
 
 % Matriz R -> Pesos associado ao desvio do valor da entrada relativamente ao equilibrio
 R = diag([1, 1]);
