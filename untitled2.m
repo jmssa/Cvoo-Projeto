@@ -51,7 +51,7 @@ b = 3.000; %m
 c = 0.300; %m
 aamax = 18.00; %deg
 
-% Derivatives (no units or SI units ):
+% Derivatives (no units or SI units):
 xu = -0.1240; xw = 0.5242; zu = -0.7717; zw = -3.5322; zwp = -0.0026;
 zq = -1.8328; mu = 0.0000; mw = -2.1311; mq = -3.6798; mwp = -0.0861;
 
@@ -100,7 +100,8 @@ B_lat = [Yda, Ydr;
 
 damp(A_lat);
 
-%% Simulacao com recurso ao Simulink
+
+%% Simulacao com recurso ao Simulink do sistema em anel aberto
 
 % Definicao das saidas do sistema
 C = eye(4);
@@ -109,11 +110,49 @@ D = zeros(4,2);
 tsim = 10;
 open("UAV3.slx");
 uav3 = sim("UAV3.slx");
+
+
+%% SAE para a derrapagem com recurso ao LQR
+
+% Matriz Q -> Peso associado ao desvio do valor do estado relativamente ao equilibrio
+Q = diag([0.2, 1, 0.5, 2]);
+
+% Matriz R -> Pesos associado ao desvio do valor da entrada relativamente ao equilibrio
+R = diag([0.1, 2]);
+
+% Matriz K -> Matriz de ganhos do controlador
+K = lqr(A_lat, B_lat, Q, R);
+
+% Nova matriz A
+A_lat = A_lat - B_lat*K;
+
+
+%% Simulacao com recurso ao Simulink
+
+tsim = 10;
+open("UAV3SAE.slx");
+uav3SAE = sim("UAV3SAE.slx");
+
+
 figure
+hold on
 plot(uav3.bb.time, uav3.bb.signals.values);
+plot(uav3SAE.bb.time, uav3SAE.bb.signals.values);
+title("Resposta do angulo de derrapagem.");
 figure
+hold on
 plot(uav3.p.time, uav3.p.signals.values);
+plot(uav3SAE.p.time, uav3SAE.p.signals.values);
+title("Resposta da razao de rolamento.");
 figure
+hold on
 plot(uav3.r.time, uav3.r.signals.values);
+plot(uav3SAE.r.time, uav3SAE.r.signals.values);
+title("Resposta da razao de guinada.");
 figure
+hold on
 plot(uav3.phi.time, uav3.phi.signals.values);
+plot(uav3SAE.phi.time, uav3SAE.phi.signals.values);
+title("Resposta do angulo de rolamento.");
+hold off
+
