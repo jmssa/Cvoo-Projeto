@@ -115,16 +115,13 @@ uav3 = sim("UAV3.slx");
 %% SAE para a derrapagem com recurso ao LQR
 
 % Matriz Q -> Peso associado ao desvio do valor do estado relativamente ao equilibrio
-Q = diag([0.2, 1, 0.5, 2]);
+Q = diag([1, 1, 1, 1]);
 
 % Matriz R -> Pesos associado ao desvio do valor da entrada relativamente ao equilibrio
-R = diag([0.1, 2]);
+R = diag([1, 1]);
 
 % Matriz K -> Matriz de ganhos do controlador
-K = lqr(A_lat, B_lat, Q, R);
-
-% Nova matriz A
-A_lat = A_lat - B_lat*K;
+K = lqr(A_lat, B_lat, Q, R, 0);
 
 
 %% Simulacao com recurso ao Simulink
@@ -156,3 +153,5 @@ plot(uav3SAE.phi.time, uav3SAE.phi.signals.values);
 title("Resposta do angulo de rolamento.");
 hold off
 
+da_max = rad2deg(max(uav3SAE.deltaa.signals.values))
+dr_max = rad2deg(max(uav3SAE.deltar.signals.values))
