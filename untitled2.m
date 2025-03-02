@@ -29,11 +29,11 @@ de0 = deg2rad(de0); %rad
 
 da0 = 0.34; %deg 
 da0 = deg2rad(da0); %rad
-deltaa = 1.34; %rad
+deltaa = 0.5; %rad
 
 dr0 = -0.01; %deg
 dr0 = deg2rad(dr0); %rad
-deltar = 0.5; %rad
+deltar = 0.15; %rad
 
 Teng = 0.14; %sec
 demax = 30; %deg
@@ -109,7 +109,7 @@ damp(A_lat);
 C = eye(4);
 D = zeros(4,2);
 
-tsim = 10;
+tsim = 10;     %#ok<NASGU>
 open("UAV3.slx");
 uav3 = sim("UAV3.slx");
 
@@ -125,6 +125,8 @@ R = diag([1, 1]);
 % Matriz K -> Matriz de ganhos do controlador
 K = lqr(A_lat, B_lat, Q, R, 0);
 
+A_lat_lqr = A_lat - B_lat*K;
+damp(A_lat_lqr);
 
 %% Simulacao com recurso ao Simulink
 
