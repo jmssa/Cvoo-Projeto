@@ -112,21 +112,7 @@ open("UAV3.slx");
 uav3 = sim("UAV3.slx");
 
 
-%% SAE para a derrapagem com recurso ao LQR
-
-% Matriz Q -> Peso associado ao desvio do valor do estado relativamente ao equilibrio
-Q = diag([10, 1, 1, 1]);
-
-% Matriz R -> Pesos associado ao desvio do valor da entrada relativamente ao equilibrio
-R = diag([3, 1]);
-
-% Matriz K -> Matriz de ganhos do controlador
-K = lqr(A_lat, B_lat, Q, R, 0);
-
-A_lat_lqr = A_lat - B_lat*K;
-damp(A_lat_lqr);
-
-%% Simulacao com recurso ao Simulink
+%% SAE para a derrapagem com recurso ao "yaw damper"
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
