@@ -104,15 +104,19 @@ damp(A_lat);
 %% Simulacao com recurso ao Simulink do sistema em anel aberto
 
 % Definicao das saidas do sistema
-C = eye(4);
+C = diag([1,1,1,1]);
 D = zeros(4,2);
 
-tsim = 15;     %#ok<NASGU>
+tsim = 15;
 open("UAV3.slx");
 uav3 = sim("UAV3.slx");
 
 
 %% SAE para a derrapagem com recurso ao "yaw damper"
+
+% O valor de K foi tirado a olho do lugar geométrico das raízes
+K = 0.172;
+damp(A_lat+B_lat(:,2)*K*[0,0,1,0])
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
