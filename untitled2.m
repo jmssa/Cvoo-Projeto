@@ -115,8 +115,9 @@ uav3 = sim("UAV3.slx");
 %% SAE para a derrapagem com recurso ao "yaw damper"
 
 % O valor de K foi tirado a olho do lugar geométrico das raízes
-K = [0,0,0.229,0];
-damp(A_lat-B_lat(:,2)*K)
+K = [0, 0, 0.229,0];
+    
+damp(A_lat-B_lat*K)
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
