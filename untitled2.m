@@ -117,7 +117,7 @@ uav3 = sim("UAV3.slx");
 % O valor de K foi tirado a olho do lugar geométrico das raízes
 K = [0, 0, 0.229,0];
     
-damp(A_lat-B_lat*K)
+damp(A_lat-B_lat(:,2)*K)
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
