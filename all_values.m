@@ -1,11 +1,3 @@
-%% UAV - Flight condition 3
-%
-% Codigo para o projeto de Controlo de Voo 2024/2025
-% Autores:
-% * Joao Santos 106280
-% * Francisco Garcia 106385
-% * Ruben Bernardino 106571
-
 %% Dados da aeronave
 
 h = 500; %m 
@@ -99,5 +91,3 @@ B_lat = [Yda, Ydr;
          0  , 0  ];
 
 damp(A_lat);
-
-
