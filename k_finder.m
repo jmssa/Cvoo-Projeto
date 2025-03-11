@@ -36,7 +36,7 @@ hold off;
 % A partir da analise do lugar geometrico das raizes, definir o K
 
 K = [0,0,0,0;
-     0,0, 0.485,0];
+     0,0, 0.314,0];
 
 %wn>1
 %chi>0.19
