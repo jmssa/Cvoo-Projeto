@@ -5,16 +5,24 @@
 % * Joao Santos 106280
 % * Francisco Garcia 106385
 % * Ruben Bernardino 106571
+ 
+clear;
+clc;
 
-[A,B] = init();
+%% condições
+
+[A,B,x0, u0] = init();
 
 %% Simulacao com recurso ao Simulink do sistema em anel aberto
+
+
+
 
 % Definicao das saidas do sistema
 C = diag([1,1,1,1]);
 D = zeros(4,2);
 
-tsim = 15;
+tsim = 40;
 open("UAV3.slx");
 uav3 = sim("UAV3.slx");
 
@@ -25,11 +33,12 @@ uav3 = sim("UAV3.slx");
 K = [0, 0, 0,     0;
      0, 0, 0.229, 0];
     
-damp(A_lat-B_lat*K)
+damp(A-B*K)
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
 
+%%
 
 figure
 hold on

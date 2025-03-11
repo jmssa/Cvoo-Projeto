@@ -1,4 +1,4 @@
-function [A,B] = init()
+function [A,B,x0,u0] = init()
 
 %% Dados da aeronave
 
@@ -61,3 +61,14 @@ B = [Yda, Ydr;
          Nlda, Nldr;
          0  , 0  ];
 
+
+%% estado inicial
+da0 = 0.34; %deg 
+da0 = deg2rad(da0); %rad
+
+dr0 = -0.01; %deg
+dr0 = deg2rad(dr0); %rad
+
+u0 = [da0, dr0];
+
+x0 = [0,0,0,0];

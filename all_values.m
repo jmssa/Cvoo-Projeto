@@ -9,7 +9,7 @@ tt0 = gg0 + aa0; %rad
 
 u0 = 54.4; %kn
 u0 = u0*0.51444; %m/s
-flaps = 0; %deg/rad
+flaps = 0; %rad
 
 w0 = tan(aa0)*u0; %m/s
 
@@ -79,15 +79,4 @@ nlr = nr + (Ixz/Iz)*lr;
 Nlda = Nda + (Ixz/Iz)*Lda;
 Nldr = Ndr + (Ixz/Iz)*Ldr;
 
-% Definicao das matrizes da dinamica e das entradas
-A_lat = [ybb, yp+(w0/u0), yr-(u0/u0), g*cos(tt0)/u0;
-        llbb, llp, llr, 0;
-        nlbb, nlp, nlr, 0;
-        0, 1, tan(tt0), 0];
 
-B_lat = [Yda, Ydr;
-         Llda, Lldr;
-         Nlda, Nldr;
-         0  , 0  ];
-
-damp(A_lat);
