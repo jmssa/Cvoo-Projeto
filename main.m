@@ -40,6 +40,10 @@ uav3SAE = sim("UAV3SAE.slx");
 
 %%
 
+
+
+
+
 figure
 hold on
 plot(uav3.bb.time, uav3.bb.signals.values);
