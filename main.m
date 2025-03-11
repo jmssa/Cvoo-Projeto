@@ -58,4 +58,3 @@ dr_max = rad2deg(max(deltar_s))
 dr_min = rad2deg(min(deltar_s))
 bb_max = rad2deg(max(bb_s))
 bb_min = rad2deg(min(bb_s))
-
