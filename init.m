@@ -62,7 +62,7 @@ B = [Yda, Ydr;
          0  , 0  ];
 
 
-%% estado inicial
+%% impulsos
 da0 = 0.34; %deg 
 da0 = deg2rad(da0); %rad
 
@@ -71,4 +71,5 @@ dr0 = deg2rad(dr0); %rad
 
 u0 = [da0, dr0];
 
+%% estado inicial
 x0 = [0,0,0,0];

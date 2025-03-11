@@ -8,7 +8,7 @@
  
 clear;
 clc;
-
+close all;
 %% condições
 
 [A,B,x0, u0] = init();
@@ -29,46 +29,13 @@ uav3 = sim("UAV3.slx");
 
 %% SAE para a derrapagem com recurso ao "yaw damper"
 
-% O valor de K foi tirado a olho do lugar geométrico das raízes
-K = [0, 0, 0,     0;
-     0, 0, 0.229, 0];
-    
-damp(A-B*K)
+K = k_finder(A,B);
+
+%%
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
 
 %%
 
-
-
-
-
-figure
-hold on
-plot(uav3.bb.time, uav3.bb.signals.values);
-plot(uav3SAE.bb.time, uav3SAE.bb.signals.values);
-title("Resposta do angulo de derrapagem.");
-legend("Sem SAE", "Com SAE");
-figure
-hold on
-plot(uav3.p.time, uav3.p.signals.values);
-plot(uav3SAE.p.time, uav3SAE.p.signals.values);
-title("Resposta da razao de rolamento.");
-legend("Sem SAE", "Com SAE");
-figure
-hold on
-plot(uav3.r.time, uav3.r.signals.values);
-plot(uav3SAE.r.time, uav3SAE.r.signals.values);
-title("Resposta da razao de guinada.");
-legend("Sem SAE", "Com SAE");
-figure
-hold on
-plot(uav3.phi.time, uav3.phi.signals.values);
-plot(uav3SAE.phi.time, uav3SAE.phi.signals.values);
-title("Resposta do angulo de rolamento.");
-legend("Sem SAE", "Com SAE");
-hold off
-
-da_max = rad2deg(max(uav3SAE.deltaa.signals.values))
-dr_max = rad2deg(max(uav3SAE.deltar.signals.values))
+graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar_s, t_o,t_s)

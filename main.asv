@@ -1,0 +1,135 @@
+%% UAV - Flight condition 3
+%
+% Codigo para o projeto de Controlo de Voo 2024/2025
+% Autores:
+% * Joao Santos 106280
+% * Francisco Garcia 106385
+% * Ruben Bernardino 106571
+ 
+clear;
+clc;
+
+%% condições
+
+[A,B,x0, u0] = init();
+
+%% Simulacao com recurso ao Simulink do sistema em anel aberto
+
+
+
+
+% Definicao das saidas do sistema
+C = diag([1,1,1,1]);
+D = zeros(4,2);
+
+tsim = 40;
+open("UAV3.slx");
+uav3 = sim("UAV3.slx");
+
+
+%% SAE para a derrapagem com recurso ao "yaw damper"
+
+%output ser apenas o r;
+C_temp = [0,0,1,0];
+D_temp = 0;
+
+%
+chi = 0.19;
+angle = asin(0.19);
+wn = 1;
+
+G = ss(A,B(:,2),C_temp,D_temp);
+
+figure
+rlocus(G) % Plot root locus
+hold on      % Keep the plot active for additional elements
+
+L = linspace(0,100,9999);
+x1 = L*cos(angle + pi);
+y1 = L*sin(angle + pi);
+
+x2 = L*cos(-angle - pi);
+y2 = L*sin(-angle - pi);
+
+theta_temp = linspace(pi/2,3*pi/2, 9999);
+x3 = wn*cos(theta_temp);
+y3 = wn*sin(theta_temp);
+
+plot(x1,y1, 'b');
+plot(x2,y2, 'b');
+plot(x3,y3, 'b');
+
+hold off;
+
+K = [0,0,0,0;
+     0,0, 0.487,0];
+
+damp(A-B*K);
+
+%%
+
+open("UAV3SAE.slx");
+uav3SAE = sim("UAV3SAE.slx");
+
+%%
+
+figure;
+tiledlayout(4,1, 'TileSpacing', 'compact');
+
+nexttile;
+plot(t_o, rad2deg(bb_o), 'b', t_s, rad2deg(bb_s), 'r', 'LineWidth', 1.5);
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Ângulo (°)', 'FontSize', 14);
+title('Ângulo de derrapagem', 'FontSize', 14);
+legend({'open loop', 'closed loop'}, 'Location', 'best');
+grid on;
+
+nexttile;
+plot(t_o, rad2deg(p_o), 'b', t_s, rad2deg(p_s), 'r', 'LineWidth', 1.5);
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Velocidade angular (°/s)', 'FontSize', 14);
+title('Razão de Picada', 'FontSize', 14);
+legend({'open loop', 'closed loop'}, 'Location', 'best');
+grid on;
+
+
+nexttile;
+plot(t_o, rad2deg(r_o), 'b', t_s, rad2deg(r_s), 'r', 'LineWidth', 1.5);
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Velocidade angular (°/s)', 'FontSize', 14);
+title('Razão de guinada', 'FontSize', 14);
+legend({'open loop', '$closed loop'}, 'Location', 'best');
+grid on;
+
+
+nexttile;
+plot(t_o, rad2deg(phi_o), 'b', t_s, rad2deg(phi_s), 'r', 'LineWidth', 1.5);
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Ângulo (°/s)', 'FontSize', 14);
+title('Ângulo de Guinada', 'FontSize', 14);
+legend({'open loop', 'closed loop'}, 'Location', 'best');
+grid on;
+
+figure;
+nextitle;
+tiledlayout(2,1, 'TileSpacing', 'compact');
+
+plot(t_s, rad2deg(deltaa_s), 'b')
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Ângulo (°)', 'FontSize', 14);
+title('$\delta_a$','Interpreter', 'Latex', 'FontSize', 14);
+grid on;
+
+nextitle;
+plot(t_s, rad2deg(deltar_s), 'b')
+xlabel('Tempo (s)', 'FontSize', 14);
+ylabel('Ângulo (°)', 'FontSize', 14);
+title('$\delta_a$','Interpreter', 'Latex', 'FontSize', 14);
+grid on;
+
+
+
+
+
+da_max = rad2deg(max(deltaa_s))
+dr_max = rad2deg(max(deltar_s))
