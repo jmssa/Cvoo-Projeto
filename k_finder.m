@@ -15,12 +15,13 @@ figure
 rlocus(G)
 hold on      
 
+% Representar as restricoes no LGR
 L = linspace(0,100,9999);
-x1 = L*cos(angle + pi);
-y1 = L*sin(angle + pi);
+x1 = L*cos((pi/2) + angle);
+y1 = L*sin((pi/2) + angle);
 
-x2 = L*cos(-angle - pi);
-y2 = L*sin(-angle - pi);
+x2 = L*cos(-(pi/2)-angle);
+y2 = L*sin(-(pi/2)-angle);
 
 theta_temp = linspace(pi/2,3*pi/2, 9999);
 x3 = wn*cos(theta_temp);
@@ -31,6 +32,8 @@ plot(x2,y2, 'b');
 plot(x3,y3, 'b');
 
 hold off;
+
+% A partir da analise do lugar geometrico das raizes, definir o K
 
 K = [0,0,0,0;
      0,0, 0.485,0];
