@@ -39,3 +39,13 @@ uav3SAE = sim("UAV3SAE.slx");
 %%
 
 graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar_s, t_o,t_s)
+
+% Analise dos valores maximos e minimos permitidos
+
+da_max = rad2deg(max(deltaa_s))
+da_min = rad2deg(min(deltaa_s))
+dr_max = rad2deg(max(deltar_s))
+dr_min = rad2deg(min(deltar_s))
+bb_max = rad2deg(max(bb_s))
+bb_min = rad2deg(min(bb_s))
+

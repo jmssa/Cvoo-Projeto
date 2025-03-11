@@ -55,7 +55,4 @@ ylabel('Ângulo (°)', 'FontSize', 14);
 title('$\delta_r$','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
-da_max = rad2deg(max(deltaa_s))
-dr_max = rad2deg(max(deltar_s))
-
 end

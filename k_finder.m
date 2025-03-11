@@ -5,7 +5,7 @@ C_temp = [0,0,1,0];
 D_temp = 0;
 
 %boundary conditions
-chi = 0.19;
+chi = 0.6;
 angle = asin(chi);
 wn = 1;
 
