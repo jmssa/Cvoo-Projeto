@@ -40,15 +40,29 @@ graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar
 
 %% Simulacao do Controlo de Atitute
 
-[A,B] = new_A_B_lambda(A,B);
+%meter as cenas inicias para só correr esta seccção de código
+clc
+clear 
+close all;
 
-%confirmacao de se o sistema é  controláv
+[A,B, x0, u0] = init();
+
+
+[A,B,dim] = new_A_B_lambda(A,B);
+
+%ver se o sistema é  controlável
+if dim == rank(ctrb(A,B))
+    disp("O novo sistema é controlável");
+else
+    disp("O sistema não é controlável");
+end
+
+C = diag([1,])
 
 Q = diag([1,1,1,1,1]);
 R = diag([1,1]);
 
-K = lqr(A,B,Q,R)
+K = lqr(A,B,Q,R);
 
 
-%% Analise dos valores maximos e minimos permitidos
 

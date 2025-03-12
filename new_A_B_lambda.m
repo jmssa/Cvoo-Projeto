@@ -1,10 +1,10 @@
-function [A,B, dim] = new_A_B_lambda(A,B)
+function [A,B,x0, dim] = new_A_B_lambda(A,B)
 
 %estados anteriores
 % X = [bb; p; r; phi];
 
 %novos estados
-% X = [bb; p; r; phi; lamda];
+% X = [bb; p; r; phi; lambda];
 
 %lambda_p = bb_p + psi_p
 
@@ -29,6 +29,7 @@ zeros = [0, 0, 0, 0, 0]';
 %adicionar a coluna de zeros para o outro estado
 A = [A, zeros];
 
+
 %% adicionar o lambda no B
 
 %nova linha = B(bb_p) + B(psi_p)
@@ -38,4 +39,7 @@ B = [B; new_line_B];
 
 %% nova dim do sistema
 dim = 5;
+
+%% condicoes inicias
+x0 = [0,0,0,0,0]';
 

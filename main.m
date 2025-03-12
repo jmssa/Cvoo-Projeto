@@ -45,10 +45,11 @@ clc
 clear 
 close all;
 
+tsim = 40;
 [A,B, x0, u0] = init();
 
 
-[A,B, dim] = new_A_B_lambda(A,B);
+[A,B,x0,dim] = new_A_B_lambda(A,B);
 
 %ver se o sistema é  controlável
 if dim == rank(ctrb(A,B))
@@ -57,13 +58,21 @@ else
     disp("O sistema não é controlável");
 end
 
+%assumir acesso a todos os estados
+C = diag([1,1,1,1,1]);
 
+%sem respostas instantaneas
+D = zeros(5,2);
 
-Q = diag([1,1,1,1,1]);
+Q = diag([10,1,1,1,30]);
 R = diag([1,1]);
 
 K = lqr(A,B,Q,R);
 
+open("UAV3atitude.slx");
+sim("UAV3atitude.slx");
 
-%% Analise dos valores maximos e minimos permitidos
+graficos_gerais(t_lqr,bb_lqr,lambda_lqr,p_lqr,r_lqr,phi_lqr,deltaa_lqr,deltar_lqr)
+
+
 
