@@ -69,10 +69,15 @@ R = diag([1,1]);
 
 K = lqr(A,B,Q,R);
 
+%referencia
+r = [deg2rad(10), deg2rad(20)];
+
 open("UAV3atitude.slx");
 sim("UAV3atitude.slx");
 
-graficos_gerais(t_lqr,bb_lqr,lambda_lqr,p_lqr,r_lqr,phi_lqr,deltaa_lqr,deltar_lqr)
+graficos_gerais(t_lqr,bb_lqr,lambda_lqr,p_lqr,r_lqr,phi_lqr,deltaa_lqr,deltar_lqr);
+
+confirmar_valores_finais(r,bb_lqr,lambda_lqr);
 
 
 

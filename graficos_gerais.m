@@ -34,7 +34,7 @@ ylabel('Ângulo (°)', 'FontSize', 14);
 title('$\delta_r$','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
-da_max = rad2deg(max(deltaa))
-da_min = rad2deg(min(deltaa))
-dr_max = rad2deg(max(deltar))
-dr_min = rad2deg(min(deltar))
+% da_max = rad2deg(max(deltaa))
+% da_min = rad2deg(min(deltaa))
+% dr_max = rad2deg(max(deltar))
+% dr_min = rad2deg(min(deltar))
