@@ -52,11 +52,7 @@ tsim = 40;
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 
 %ver se o sistema é  controlável
-if dim == rank(ctrb(A,B))
-    disp("O novo sistema é controlável");
-else
-    disp("O sistema não é controlável");
-end
+check_controlabilidade(A,B,dim)
 
 %assumir acesso a todos os estados
 C = diag([1,1,1,1,1]);
@@ -78,6 +74,36 @@ sim("UAV3atitude.slx");
 graficos_gerais(t_lqr,bb_lqr,lambda_lqr,p_lqr,r_lqr,phi_lqr,deltaa_lqr,deltar_lqr);
 
 confirmar_valores_finais(r,bb_lqr,lambda_lqr);
+
+%% Novos estados integrativos
+%meter as cenas inicias para só correr esta seccção de código
+clc
+clear 
+close all;
+tsim = 40;
+[A,B, x0, u0] = init();
+[A,B,x0,dim] = new_A_B_lambda(A,B);
+[A_temp,B_temp,dim] = new_A_B_integrativos(A,B);
+
+C = [1,0,0,0,0;
+     0,0,0,0,1];
+
+D = zeros(2,2);
+
+tsim = 40;
+Q = diag([10,1,1,1,30,1,1]);
+R = diag([1,1]);
+
+K = lqr(A_temp,B_temp,Q,R)
+%referencia
+r = [deg2rad(10), deg2rad(20)];
+
+open("UAV3atitude_int.slx");
+sim("UAV3atitude_int.slx");
+
+graficos_gerais(t_int,bb_int,lambda_int,p_int,r_int,phi_int,deltaa_int,deltar_int);
+
+confirmar_valores_finais(r,bb_int,lambda_int);
 
 
 

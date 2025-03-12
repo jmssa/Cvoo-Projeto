@@ -79,4 +79,3 @@ nlr = nr + (Ixz/Iz)*lr;
 Nlda = Nda + (Ixz/Iz)*Lda;
 Nldr = Ndr + (Ixz/Iz)*Ldr;
 
-
