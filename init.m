@@ -1,4 +1,4 @@
-function [A,B,A_lqr,B_lqr,x0,u0] = init()
+function [A,B,x0,u0] = init()
 
 %% Dados da aeronave
 
@@ -61,13 +61,6 @@ B = [Yda, Ydr;
      Nlda, Nldr;
      0  , 0  ];
 
-A_lqr = [A,zeros(4,2);
-         0,0,1/cos(tt0),0,0,0;
-         ybb, yp+(w0/u0), yr-(u0/u0)+(1/cos(tt0)), g*cos(tt0)/u0,0,0];
-
-B_lqr = [B;
-         0,0;
-         Yda, Ydr];
 
 %% impulsos
 da0 = 0.34; %deg 

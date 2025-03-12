@@ -8,19 +8,19 @@
  
 clear;
 clc;
-
+close all;
 %% condições
 
-[A,B,x0, u0] = init();
+[A,B, x0, u0] = init();
 
 %% Simulacao com recurso ao Simulink do sistema em anel aberto
-
-
-
 
 % Definicao das saidas do sistema
 C = diag([1,1,1,1]);
 D = zeros(4,2);
+
+C_lqr = diag([1,1,1,1,1,1]);
+D_lqr = zeros(6,2);
 
 tsim = 40;
 open("UAV3.slx");
@@ -29,107 +29,26 @@ uav3 = sim("UAV3.slx");
 
 %% SAE para a derrapagem com recurso ao "yaw damper"
 
-%output ser apenas o r;
-C_temp = [0,0,1,0];
-D_temp = 0;
-
-%
-chi = 0.19;
-angle = asin(0.19);
-wn = 1;
-
-G = ss(A,B(:,2),C_temp,D_temp);
-
-figure
-rlocus(G) % Plot root locus
-hold on      % Keep the plot active for additional elements
-
-L = linspace(0,100,9999);
-x1 = L*cos(angle + pi);
-y1 = L*sin(angle + pi);
-
-x2 = L*cos(-angle - pi);
-y2 = L*sin(-angle - pi);
-
-theta_temp = linspace(pi/2,3*pi/2, 9999);
-x3 = wn*cos(theta_temp);
-y3 = wn*sin(theta_temp);
-
-plot(x1,y1, 'b');
-plot(x2,y2, 'b');
-plot(x3,y3, 'b');
-
-hold off;
-
-K = [0,0,0,0;
-     0,0, 0.487,0];
-
-damp(A-B*K);
+K = k_finder(A,B);
 
 %%
 
 open("UAV3SAE.slx");
 uav3SAE = sim("UAV3SAE.slx");
 
-%%
+graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar_s, t_o,t_s)
 
-figure;
-tiledlayout(4,1, 'TileSpacing', 'compact');
+%% Simulacao do Controlo de Atitute
 
-nexttile;
-plot(t_o, rad2deg(bb_o), 'b', t_s, rad2deg(bb_s), 'r', 'LineWidth', 1.5);
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Ângulo (°)', 'FontSize', 14);
-title('Ângulo de derrapagem', 'FontSize', 14);
-legend({'open loop', 'closed loop'}, 'Location', 'best');
-grid on;
+[A,B] = new_A_B_lambda(A,B);
 
-nexttile;
-plot(t_o, rad2deg(p_o), 'b', t_s, rad2deg(p_s), 'r', 'LineWidth', 1.5);
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Velocidade angular (°/s)', 'FontSize', 14);
-title('Razão de Picada', 'FontSize', 14);
-legend({'open loop', 'closed loop'}, 'Location', 'best');
-grid on;
+%confirmacao de se o sistema é  controláv
+
+Q = diag([1,1,1,1,1]);
+R = diag([1,1]);
+
+K = lqr(A,B,Q,R)
 
 
-nexttile;
-plot(t_o, rad2deg(r_o), 'b', t_s, rad2deg(r_s), 'r', 'LineWidth', 1.5);
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Velocidade angular (°/s)', 'FontSize', 14);
-title('Razão de guinada', 'FontSize', 14);
-legend({'open loop', '$closed loop'}, 'Location', 'best');
-grid on;
+%% Analise dos valores maximos e minimos permitidos
 
-
-nexttile;
-plot(t_o, rad2deg(phi_o), 'b', t_s, rad2deg(phi_s), 'r', 'LineWidth', 1.5);
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Ângulo (°/s)', 'FontSize', 14);
-title('Ângulo de Guinada', 'FontSize', 14);
-legend({'open loop', 'closed loop'}, 'Location', 'best');
-grid on;
-
-figure;
-nextitle;
-tiledlayout(2,1, 'TileSpacing', 'compact');
-
-plot(t_s, rad2deg(deltaa_s), 'b')
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Ângulo (°)', 'FontSize', 14);
-title('$\delta_a$','Interpreter', 'Latex', 'FontSize', 14);
-grid on;
-
-nextitle;
-plot(t_s, rad2deg(deltar_s), 'b')
-xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Ângulo (°)', 'FontSize', 14);
-title('$\delta_a$','Interpreter', 'Latex', 'FontSize', 14);
-grid on;
-
-
-
-
-
-da_max = rad2deg(max(deltaa_s))
-dr_max = rad2deg(max(deltar_s))
