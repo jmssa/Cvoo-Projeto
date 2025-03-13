@@ -85,23 +85,22 @@ tsim = 40;
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 [A_temp,B_temp,dim] = new_A_B_integrativos(A,B);
 
-C = [1,0,0,0,0;
-     0,0,0,0,1];
+C = diag([1,1,1,1,1]);
 
-D = zeros(2,2);
+D = zeros(5,2);
 
 tsim = 40;
-Q = diag([10,1,1,1,30,1,1]);
-R = diag([1,1]);
+Q = diag([10,1,1,1,30,75,75]);
+R = diag([1/deg2rad(15),1/deg2rad(15)]);
 
-K = lqr(A_temp,B_temp,Q,R)
+K = lqr(A_temp,B_temp,Q,R);
 %referencia
 r = [deg2rad(10), deg2rad(20)];
 
 open("UAV3atitude_int.slx");
 sim("UAV3atitude_int.slx");
 
-graficos_gerais(t_int,bb_int,lambda_int,p_int,r_int,phi_int,deltaa_int,deltar_int);
+graficos_gerais(t_int,bb_ref,lambda_ref ,bb_int,lambda_int,p_int,r_int,phi_int,deltaa_int,deltar_int);
 
 confirmar_valores_finais(r,bb_int,lambda_int);
 

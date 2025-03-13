@@ -1,17 +1,17 @@
-function graficos_gerais(t,bb,lambda,p,r,phi, deltaa, deltar)
+function graficos_gerais(t,bb_ref, lambda_ref,bb,lambda,p,r,phi, deltaa, deltar)
 
 figure;
 tiledlayout(2,1, 'TileSpacing', 'compact');
 
 nexttile;
-plot(t, rad2deg(bb), 'r', 'LineWidth', 1.5);
+plot(t, rad2deg(bb),'r', t, rad2deg(bb_ref), 'black', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Ângulo (°)', 'FontSize', 14);
 title('Ângulo de derrapagem', 'FontSize', 14);
 grid on;
 
 nexttile;
-plot(t, rad2deg(lambda), 'r', 'LineWidth', 1.5);
+plot(t, rad2deg(lambda), 'r', t, rad2deg(lambda_ref),'black', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Ângulo (°)', 'FontSize', 14);
 title('Ângulo de rumo', 'FontSize', 14);
