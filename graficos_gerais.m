@@ -8,6 +8,7 @@ plot(t, rad2deg(bb),'r', t, rad2deg(bb_ref), 'black', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Ângulo (°)', 'FontSize', 14);
 title('Ângulo de derrapagem', 'FontSize', 14);
+legend('Resposta','Valor de Referência');
 grid on;
 
 nexttile;
@@ -15,6 +16,7 @@ plot(t, rad2deg(lambda), 'r', t, rad2deg(lambda_ref),'black', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Ângulo (°)', 'FontSize', 14);
 title('Ângulo de rumo', 'FontSize', 14);
+legend('Resposta','Valor de Referência');
 grid on;
 
 figure

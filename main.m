@@ -106,7 +106,7 @@ graficos_gerais(t_int,bb_ref_int,lambda_ref_int ,bb_int,lambda_int,p_int,r_int,p
 
 
 
-%% Integrador
+%% observador
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
