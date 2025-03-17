@@ -60,8 +60,8 @@ C = diag([1,1,1,1,1]);
 %sem respostas instantaneas
 D = zeros(5,2);
 
-Q = diag([50,3,4,1,30]);
-R = diag([20,10]);
+Q = diag([10,1,1,1,30]);
+R = diag([1,1]);
 
 K = lqr(A,B,Q,R);
 
@@ -83,18 +83,19 @@ close all;
 tsim = 40;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
-[A_temp,B_temp,dim] = new_A_B_integrativos(A,B);
+[A_temp,B_temp,dim_temp] = new_A_B_integrativos(A,B);
+
+check_controlabilidade(A_temp,B_temp,dim_temp)
 
 C = diag([1,1,1,1,1]);
 
 D = zeros(5,2);
 
 tsim = 40;
-Q = diag([50,3,4,1,60,75,75]);
-R = diag([40,30]);
+Q = diag([10,1,1,1,30,75,75]);
+R = diag([1/deg2rad(15),1/deg2rad(15)]);
 
 K = lqr(A_temp,B_temp,Q,R);
-
 %referencia
 r = [deg2rad(10), deg2rad(20)];
 
@@ -105,5 +106,27 @@ graficos_gerais(t_int,bb_ref_int,lambda_ref_int ,bb_int,lambda_int,p_int,r_int,p
 
 
 
+%% observador
+%meter as cenas inicias para só correr esta seccção de código
+clc
+clear 
+close all;
+tsim = 40;
+[A,B, x0, u0] = init();
+[A,B,x0,dim] = new_A_B_lambda(A,B);
 
+%Temos acesso apenas ao p e r
+u0 = 54.4; %kn
+u0 = u0*0.51444; %m/s
 
+dim = 5;
+C = [0,0,0,0,0;
+     0,0,0,0,0;
+     0,0,0,0,1;];
+
+rank(obsv(A,C))
+if rank(obsv(A,C)) == dim
+    disp("O sistema é observável")
+else
+    disp("O sistema não é observável")
+end
