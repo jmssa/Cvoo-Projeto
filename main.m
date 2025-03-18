@@ -115,15 +115,41 @@ tsim = 40;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 
-%Temos acesso apenas ao p e r
-u0 = 54.4; %kn
-u0 = u0*0.51444; %m/s
+% definição dos ganhos com estados integrativos
+[A_temp,B_temp,dim_temp] = new_A_B_integrativos(A,B);
+Q = diag([50,3,4,1,60,75,75]);
+R = diag([40,30]);
+K = lqr(A_temp,B_temp,Q,R);
 
-dim = 5;
+%Temos acesso apenas ao p e r
+%acesso ao p,r e psi = lambda - beta
 C = [0,1,0,0,0;
      0,0,1,0,0;
-     0,0,0,0,0;
-     0,0,0,0,0;
-     0,0,0,0,1;];
+     -1,0,0,0,1;];
 
 check_observabilidade(A,C,dim)
+
+%ganho do ruido
+G = diag([1,1,1,1,1]);
+
+%variança dos erros de processo
+Qe = diag([1,1,1,1,1]);
+
+%variança dos erros de medição
+Re = diag([1,1,1]);
+
+L = lqe(A,G,C,Qe,Re);
+
+
+
+%referencia
+ref = [deg2rad(10), deg2rad(20)];
+
+open("UAV_estim.slx");
+sim("UAV_estim.slx");
+
+grafico_est_vs_real_vs_medido(t, bb_est,bb, lambda_est, lambda, p_est, p, r_est,r, p_lido, r_lido)
+graficos_gerais(t,bb_ref,lambda_ref,bb_est,lambda_est, p_est,r_est,phi_est,deltaa,deltar);
+
+% u0 = 54.4; %kn
+% u0 = u0*0.51444; %m/s
