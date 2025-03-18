@@ -60,8 +60,8 @@ C = diag([1,1,1,1,1]);
 %sem respostas instantaneas
 D = zeros(5,2);
 
-Q = diag([10,1,1,1,30]);
-R = diag([1,1]);
+Q = diag([50,3,4,1,30]);
+R = diag([20,10]);
 
 K = lqr(A,B,Q,R);
 
@@ -92,8 +92,8 @@ C = diag([1,1,1,1,1]);
 D = zeros(5,2);
 
 tsim = 40;
-Q = diag([10,1,1,1,30,75,75]);
-R = diag([1/deg2rad(15),1/deg2rad(15)]);
+Q = diag([50,3,4,1,60,75,75]);
+R = diag([40,30]);
 
 K = lqr(A_temp,B_temp,Q,R);
 %referencia
@@ -120,13 +120,10 @@ u0 = 54.4; %kn
 u0 = u0*0.51444; %m/s
 
 dim = 5;
-C = [0,0,0,0,0;
+C = [0,1,0,0,0;
+     0,0,1,0,0;
+     0,0,0,0,0;
      0,0,0,0,0;
      0,0,0,0,1;];
 
-rank(obsv(A,C))
-if rank(obsv(A,C)) == dim
-    disp("O sistema é observável")
-else
-    disp("O sistema não é observável")
-end
+check_observabilidade(A,C,dim)
