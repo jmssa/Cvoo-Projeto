@@ -130,7 +130,7 @@ C = [0,1,0,0,0;
 check_observabilidade(A,C,dim)
 
 %ganho do ruido
-G = diag([1,1,1,1,1]);
+G = diag([1,1,1,1,1])*0.01;
 
 %variança dos erros de processo
 Qe = diag([1,1,1,1,1]);
