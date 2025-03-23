@@ -16,7 +16,7 @@ nexttile;
 plot(t_o, rad2deg(p_o), 'b', t_s, rad2deg(p_s), 'r', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Velocidade angular (°/s)', 'FontSize', 14);
-title('Razão de Picada', 'FontSize', 14);
+title('Razão de Rolamento', 'FontSize', 14);
 legend({'open loop', 'closed loop'}, 'Location', 'best');
 grid on;
 
@@ -26,7 +26,7 @@ plot(t_o, rad2deg(r_o), 'b', t_s, rad2deg(r_s), 'r', 'LineWidth', 1.5);
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Velocidade angular (°/s)', 'FontSize', 14);
 title('Razão de guinada', 'FontSize', 14);
-legend({'open loop', '$closed loop'}, 'Location', 'best');
+legend({'open loop', 'closed loop'}, 'Location', 'best');
 grid on;
 
 
