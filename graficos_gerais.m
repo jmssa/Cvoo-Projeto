@@ -42,14 +42,14 @@ tiledlayout(3,1, 'TileSpacing', 'compact');
 nexttile;
 plot(t, p, 'r')
 xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Razão (rad/s)', 'FontSize', 14);
+ylabel('Razão (rev/s)', 'FontSize', 14);
 title('p','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
 nexttile;
 plot(t, r, 'r')
 xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Razão (rad/s)', 'FontSize', 14);
+ylabel('Razão (rev/s)', 'FontSize', 14);
 title('r','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
@@ -60,7 +60,7 @@ ylabel('Ângulo (°)', 'FontSize', 14);
 title('$\phi$','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
-% da_max = rad2deg(max(deltaa))
-% da_min = rad2deg(min(deltaa))
-% dr_max = rad2deg(max(deltar))
-% dr_min = rad2deg(min(deltar))
+da_max = rad2deg(max(deltaa))
+da_min = rad2deg(min(deltaa))
+dr_max = rad2deg(max(deltar))
+dr_min = rad2deg(min(deltar))
