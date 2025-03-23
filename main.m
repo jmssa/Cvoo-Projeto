@@ -8,7 +8,7 @@
  
 clear;
 clc;
-close all;
+%close all;
 %% condições
 
 [A,B, x0, u0] = init();
@@ -43,7 +43,7 @@ graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
-close all;
+%close all;
 
 tsim = 40;
 [A,B, x0, u0] = init();
@@ -79,7 +79,7 @@ confirmar_valores_finais(r,bb_lqr,lambda_lqr);
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
-close all;
+%close all;
 tsim = 40;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
