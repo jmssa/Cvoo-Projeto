@@ -144,10 +144,19 @@ L = lqe(A,G,C,Qe,Re);
 %referencia
 ref = [deg2rad(10), deg2rad(20)];
 
+aa0 = -3.65; %deg
+aa0 = deg2rad(aa0); %rad
+
+gg0 = 0; %deg/rad
+tt0 = gg0 + aa0; %rad
+
+H = 0.44;
+freq_amost = 100;
+
 open("UAV_estim.slx");
 sim("UAV_estim.slx");
 
-grafico_est_vs_real_vs_medido(t, bb_est,bb, lambda_est, lambda, p_est, p, r_est,r, p_lido, r_lido)
+grafico_est_vs_real_vs_medido(t, bb_est,bb, lambda_est, lambda, p_est, p, r_est,r, psi_est, psi, p_lido, r_lido, psi_lido)
 graficos_gerais(t,bb_ref,lambda_ref,bb_est,lambda_est, p_est,r_est,phi_est,deltaa,deltar);
 
 % u0 = 54.4; %kn
