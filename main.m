@@ -152,6 +152,7 @@ tt0 = gg0 + aa0; %rad
 
 H = 0.44;
 freq_amost = 100;
+sample_time = 1/freq_amost;
 
 open("UAV_estim.slx");
 sim("UAV_estim.slx");
