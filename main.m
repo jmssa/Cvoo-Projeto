@@ -162,3 +162,8 @@ graficos_gerais(t,bb_ref,lambda_ref,bb_est,lambda_est, p_est,r_est,phi_est,delta
 
 % u0 = 54.4; %kn
 % u0 = u0*0.51444; %m/s
+
+%% GPS
+
+freq_amos_gps = 5;
+sample_time_gps = 1/freq_amos_gps;
