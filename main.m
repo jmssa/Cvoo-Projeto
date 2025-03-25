@@ -71,7 +71,7 @@ r = [deg2rad(10), deg2rad(20)];
 open("UAV3atitude.slx");
 sim("UAV3atitude.slx");
 
-graficos_gerais(t_lqr,bb_ref_lqr,lambda_ref_lqr ,bb_lqr,lambda_lqr,p_lqr,r_lqr,phi_lqr,deltaa_lqr,deltar_lqr);
+graficos_gerais(t_lqr,bb_ref_lqr,lambda_ref_lqr ,bb_lqr,lambda_lqr,p_lqr/(2*pi()),r_lqr/(2*pi()),phi_lqr,deltaa_lqr,deltar_lqr);
 
 confirmar_valores_finais(r,bb_lqr,lambda_lqr);
 
@@ -83,26 +83,25 @@ close all;
 tsim = 40;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
-[A_temp,B_temp,dim_temp] = new_A_B_integrativos(A,B);
-
-check_controlabilidade(A_temp,B_temp,dim_temp)
+[A_temp,B_temp,dim] = new_A_B_integrativos(A,B);
 
 C = diag([1,1,1,1,1]);
 
 D = zeros(5,2);
 
 tsim = 40;
-Q = diag([50,3,4,1,60,75,75]);
+Q = diag([50,3,4,50,60,75,75]);
 R = diag([40,30]);
 
 K = lqr(A_temp,B_temp,Q,R);
+
 %referencia
 r = [deg2rad(10), deg2rad(20)];
 
 open("UAV3atitude_int.slx");
 sim("UAV3atitude_int.slx");
 
-graficos_gerais(t_int,bb_ref_int,lambda_ref_int ,bb_int,lambda_int,p_int,r_int,phi_int,deltaa_int,deltar_int);
+graficos_gerais(t_int,bb_ref_int,lambda_ref_int ,bb_int,lambda_int,p_int/(2*pi()),r_int/(2*pi()),phi_int,deltaa_int,deltar_int);
 
 
 
