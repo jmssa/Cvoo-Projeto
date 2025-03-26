@@ -163,7 +163,112 @@ graficos_gerais(t,bb_ref,lambda_ref,bb_est,lambda_est, p_est,r_est,phi_est,delta
 % u0 = 54.4; %kn
 % u0 = u0*0.51444; %m/s
 
-%% GPS
+%% GPS e seguimento de xi
+clc
+clear 
+close all;
+[A,B, x0, u0] = init();
+[A,B,x0,dim] = new_A_B_lambda(A,B);
+C = [0,1,0,0,0;0,0,1,0,0;-1,0,0,0,1;];
+K = K_lqr(A,B);
+L = L_estim(A,C);
+
+% definicao de cenas para a sim
+aa0 = -3.65; %deg
+aa0 = deg2rad(aa0); %rad
+gg0 = 0; %deg/rad
+tt0 = gg0 + aa0; %rad
+
+Vwind = 3; %m/s
+
+u0 = 54.4; %kn
+u0 = u0*0.51444; %m/s
+
+H = 0.44; %campo mag
+
+%freqs
+freq_amost = 100;
+sample_time = 1/freq_amost;
 
 freq_amos_gps = 5;
 sample_time_gps = 1/freq_amos_gps;
+
+
+%referencia
+ref = [deg2rad(0), deg2rad(90)];
+
+tsim = 100;
+t_start = 10;
+t_slope = 2;
+t_still = 40;
+
+%Start conditions
+
+P = [1,1];
+E0 = P(1);
+N0 = P(2);
+
+open("UAV_xi.slx");
+sim("UAV_xi.slx");
+
+
+graficos_gerais_plus(t,bb_ref,xi_ref,bb_est,lambda_est, p_est,r_est,phi_est,deltaa,deltar,xi);
+
+%% Formacao
+clc
+clear 
+close all;
+[A,B, x0, u0] = init();
+[A,B,x0,dim] = new_A_B_lambda(A,B);
+C = [0,1,0,0,0;0,0,1,0,0;-1,0,0,0,1;];
+K = K_lqr(A,B);
+L = L_estim(A,C);
+
+% definicao de cenas para a sim
+aa0 = -3.65; %deg
+aa0 = deg2rad(aa0); %rad
+gg0 = 0; %deg/rad
+tt0 = gg0 + aa0; %rad
+
+Vwind = 3; %m/s
+
+u0 = 54.4; %kn
+u0 = u0*0.51444; %m/s
+
+H = 0.44; %campo mag
+
+%freqs
+freq_amost = 100;
+sample_time = 1/freq_amost;
+
+freq_amos_gps = 5;
+sample_time_gps = 1/freq_amos_gps;
+
+
+%referencia
+ref = [deg2rad(0), deg2rad(90)];
+
+tsim = 150;
+t_start = 10;
+t_slope = 30;
+t_still = 50;
+
+%Start conditions
+
+P_l= [200,200];
+E0_l = P_l(1);
+N0_l = P_l(2);
+
+P_f= [50,50];
+E0_f = P_f(2);
+N0_f = P_f(2);
+
+
+open("UAV_formacao.slx")
+sim("UAV_formacao.slx")
+
+figure;
+hold on;
+plot(E_leader, N_leader)
+plot(E_follow, N_follow)
+plot(E_follow - E_leader, N_follow-N_leader)
