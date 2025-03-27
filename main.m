@@ -249,18 +249,18 @@ sample_time_gps = 1/freq_amos_gps;
 ref = [deg2rad(0), deg2rad(90)];
 
 tsim = 150;
-t_start = 10;
-t_slope = 30;
+t_start = 20;
+t_slope = 0.000001;
 t_still = 50;
 
 %Start conditions
 
-P_l= [200,200];
+P_l= [300,300];
 E0_l = P_l(1);
 N0_l = P_l(2);
 
-P_f= [50,50];
-E0_f = P_f(2);
+P_f= [300,200];
+E0_f = P_f(1);
 N0_f = P_f(2);
 
 
