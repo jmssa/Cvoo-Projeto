@@ -60,8 +60,19 @@ C = diag([1,1,1,1,1]);
 %sem respostas instantaneas
 D = zeros(5,2);
 
-Q = diag([50,3,4,1,30]);
-R = diag([20,10]);
+
+q = [5, 18, 7, 15, 75];
+q = deg2rad(q);
+q = q.^2;
+q = 1./q;
+Q = diag(q);
+
+
+r = [20, 20];
+r = deg2rad(r);
+r = r.^2;
+r = 1./r;
+R = diag(r);
 
 K = lqr(A,B,Q,R);
 
@@ -90,8 +101,20 @@ C = diag([1,1,1,1,1]);
 D = zeros(5,2);
 
 tsim = 40;
-Q = diag([50,3,4,50,60,75,75]);
-R = diag([40,30]);
+
+q = [5, 18, 7, 15, 75, 100, 100];
+q = deg2rad(q);
+q = q.^2;
+q = 1./q;
+Q = diag(q);
+
+
+r = [20, 20];
+r = deg2rad(r);
+r = r.^2;
+r = 1./r;
+R = diag(r);
+
 
 K = lqr(A_temp,B_temp,Q,R);
 
