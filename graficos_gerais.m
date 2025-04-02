@@ -42,14 +42,14 @@ tiledlayout(3,1, 'TileSpacing', 'compact');
 nexttile;
 plot(t, p, 'r')
 xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Razão (rev/s)', 'FontSize', 14);
+ylabel('Razão (°/s)', 'FontSize', 14);
 title('p','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
 nexttile;
 plot(t, r, 'r')
 xlabel('Tempo (s)', 'FontSize', 14);
-ylabel('Razão (rev/s)', 'FontSize', 14);
+ylabel('Razão (°/s)', 'FontSize', 14);
 title('r','Interpreter', 'Latex', 'FontSize', 14);
 grid on;
 
