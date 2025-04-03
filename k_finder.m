@@ -9,10 +9,11 @@ chi = 0.6;
 angle = asin(chi);
 wn = 1;
 
-G = ss(A,B(:,2),C_temp,D_temp);
+G = ss(A,B(:,2),C_temp,D_temp)
 
 figure
 rlocus(G)
+xlim([-30,1])
 hold on      
 
 % Representar as restricoes no LGR

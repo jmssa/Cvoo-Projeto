@@ -29,7 +29,7 @@ uav3 = sim("UAV3.slx");
 
 %% SAE para a derrapagem com recurso ao "yaw damper"
 
-K = k_finder(A,B);
+K = k_finder(A,B)
 
 %%
 
@@ -45,7 +45,7 @@ clc
 clear 
 close all;
 
-tsim = 20;
+tsim = 40;
 [A,B, x0, u0] = init();
 
 
@@ -61,7 +61,7 @@ C = diag([1,1,1,1,1]);
 D = zeros(5,2);
 
 
-q = [5, 15, 15, 30, 75];
+q = [5, 15, 15, 15, 75];
 q = deg2rad(q);
 q = q.^2;
 q = 1./q;
@@ -74,7 +74,8 @@ r = r.^2;
 r = 1./r;
 R = diag(r);
 
-K = lqr(A,B,Q,R);
+K = lqr(A,B,Q,R)
+damp(A-B*K)
 
 %referencia
 r = [deg2rad(10), deg2rad(20)];
@@ -91,7 +92,7 @@ confirmar_valores_finais(r,bb_lqr,lambda_lqr);
 clc
 clear 
 close all;
-tsim = 40;
+tsim = 50;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 [A_temp,B_temp,dim] = new_A_B_integrativos(A,B);
@@ -100,14 +101,11 @@ C = diag([1,1,1,1,1]);
 
 D = zeros(5,2);
 
-tsim = 40;
-
-q = [5, 15, 15, 15, 75, 5, 5];
+q = [5, 15, 15, 30, 75, 100, 100];
 q = deg2rad(q);
 q = q.^2;
 q = 1./q;
 Q = diag(q);
-
 
 r = [20, 20];
 r = deg2rad(r);
@@ -115,8 +113,8 @@ r = r.^2;
 r = 1./r;
 R = diag(r);
 
-
-K = lqr(A_temp,B_temp,Q,R);
+K = lqr(A_temp,B_temp,Q,R)
+damp(A_temp-B_temp*K)
 
 %referencia
 r = [deg2rad(10), deg2rad(20)];
@@ -139,8 +137,18 @@ tsim = 40;
 
 % definição dos ganhos com estados integrativos
 [A_temp,B_temp,dim_temp] = new_A_B_integrativos(A,B);
-Q = diag([50,3,4,1,60,75,75]);
-R = diag([40,30]);
+q = [5, 20, 20, 10, 60, 5, 10];
+q = deg2rad(q);
+q = q.^2;
+q = 1./q;
+Q = diag(q);
+
+
+r = [20, 20];
+r = deg2rad(r);
+r = r.^2;
+r = 1./r;
+R = diag(r);
 K = lqr(A_temp,B_temp,Q,R);
 
 %Temos acesso apenas ao p e r
@@ -222,7 +230,7 @@ ref = [deg2rad(0), deg2rad(90)];
 
 tsim = 100;
 t_start = 10;
-t_slope = 2;
+t_slope = 10;
 t_still = 40;
 
 %Start conditions
