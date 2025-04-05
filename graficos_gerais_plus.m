@@ -16,7 +16,7 @@ plot(t, rad2deg(lambda_ref),'black', xi.time, rad2deg(xi.signals.values), 'r',  
 xlabel('Tempo (s)', 'FontSize', 14);
 ylabel('Ângulo (°)', 'FontSize', 14);
 title('Ângulo de rumo', 'FontSize', 14);
-legend('Valor de Referência','Resposta Xi');
+legend('Valor de Referência','Resposta');
 grid on;
 
 figure

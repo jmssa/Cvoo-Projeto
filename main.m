@@ -298,8 +298,4 @@ N0_f = P_f(2);
 open("UAV_formacao.slx")
 sim("UAV_formacao.slx")
 
-figure;
-hold on;
-plot(E_leader, N_leader)
-plot(E_follow, N_follow)
-plot(E_follow - E_leader, N_follow-N_leader)
+graficos_formacao(E_leader, N_leader, E_follow, N_follow)
