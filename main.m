@@ -143,7 +143,6 @@ q = q.^2;
 q = 1./q;
 Q = diag(q);
 
-
 r = [20, 20];
 r = deg2rad(r);
 r = r.^2;
@@ -290,12 +289,11 @@ P_l= [300,300];
 E0_l = P_l(1);
 N0_l = P_l(2);
 
-P_f= [300,200];
+P_f= [300,P_l(1)-u0*2.3];
 E0_f = P_f(1);
 N0_f = P_f(2);
-
 
 open("UAV_formacao.slx")
 sim("UAV_formacao.slx")
 
-graficos_formacao(E_leader, N_leader, E_follow, N_follow)
+graficos_formacao(E_leader, N_leader, E_follow, N_follow, x_diff, y_diff)
