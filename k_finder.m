@@ -4,7 +4,7 @@ function K = k_finder(A,B)
 C_temp = [0,0,1,0];
 D_temp = 0;
 
-%boundary conditions
+%condicoes limite
 chi = 0.6;
 angle = asin(chi);
 wn = 1;
@@ -44,6 +44,6 @@ K = [0,0,0,0;
 %polos reais
 %margem para n ter oscilações
 
-damp(A-B*K);
+damp(A-B*K)
 
 end

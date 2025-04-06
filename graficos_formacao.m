@@ -15,7 +15,7 @@ nexttile
 plot(x_diff.signals.values, y_diff.signals.values, 'Color', [0 0.7 0], 'LineWidth', 1.5);
 xlabel('X (m)', 'FontSize', 14);
 ylabel('Y (m)', 'FontSize', 14);
-title('Posição da líder no referencial da seguidora', 'Interpreter', 'Latex', 'FontSize', 14);
+title('Posição da líder no referencial da seguidora', 'FontSize', 14);
 grid on;
 
 
