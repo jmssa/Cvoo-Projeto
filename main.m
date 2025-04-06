@@ -43,7 +43,7 @@ graficos_aberto_vs_fechado(bb_o,bb_s,p_o,p_s,r_o,r_s,phi_o,phi_s,deltaa_s,deltar
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
-close all;
+%close all;
 
 tsim = 40;
 [A,B, x0, u0] = init();
@@ -91,7 +91,7 @@ confirmar_valores_finais(r,bb_lqr,lambda_lqr);
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
-close all;
+%close all;
 tsim = 50;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
@@ -130,7 +130,7 @@ graficos_gerais(t_int,bb_ref_int,lambda_ref_int ,bb_int,lambda_int,p_int*180/pi(
 %meter as cenas inicias para só correr esta seccção de código
 clc
 clear 
-close all;
+%close all;
 tsim = 40;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
@@ -196,7 +196,7 @@ graficos_gerais(t,bb_ref,lambda_ref,bb_est,lambda_est, p_est,r_est,phi_est,delta
 %% GPS e seguimento de xi
 clc
 clear 
-close all;
+%close all;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 C = [0,1,0,0,0;0,0,1,0,0;-1,0,0,0,1;];
@@ -247,7 +247,7 @@ graficos_gerais_plus(t,bb_ref,xi_ref,bb_est,lambda_est, p_est,r_est,phi_est,delt
 %% Formacao
 clc
 clear 
-close all;
+%close all;
 [A,B, x0, u0] = init();
 [A,B,x0,dim] = new_A_B_lambda(A,B);
 C = [0,1,0,0,0;0,0,1,0,0;-1,0,0,0,1;];
